@@ -1,6 +1,7 @@
 // Okay, so this game is a bit evil in terms of difficulty, but it was fun to develop at least! :-)
 #include <iostream>
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -20,9 +21,9 @@ void playGameAtDifficulty(int difficulty, int lives)
 	cout << "You arrive at " << chamber << ". You are presented with a riddle: \n";
 
 	// Riddle Setup and Difficulty Progression Mechanic
-	int num1 = rand() % (10 * difficulty);
-	int num2 = rand() % (10 * difficulty);
-	int num3 = rand() % (10 * difficulty);
+	int num1 = rand() % (5 * difficulty) + 1;
+	int num2 = rand() % (5 * difficulty) + 1;
+	int num3 = rand() % (5 * difficulty) + 1;
 
 	int sum = num1 + num2 + num3;
 	int prod = num1 * num2 * num3;
@@ -71,18 +72,19 @@ void playGameAtDifficulty(int difficulty, int lives)
 	}
 
 	// Did he get things right? Let's hope so. 
+	system("cls");
 	if (trialSum == sum && trialProd == prod) 
 	{
-		cout << "'You have solved them all correctly. In the next chamber is the treasure you seek.'" << "\n";
+		cout << "'You have solved them all correctly. In the next chamber is the treasure you seek.'" << "\n\n";
 		playGameAtDifficulty(++difficulty, lives);
 	}
 	else
 	{
-		cout << "'Your overconfidence has shown and one more failure you shall own.' " << "\n";
+		cout << "'Your overconfidence has shown and one more failure you shall own.' " << "\n\n";
 		lives--;
 		if (lives <= 0)
 		{
-			cout << "'You have failed three times too many! Now face my consequences like the failures many!' " << "\n";
+			cout << "'You have failed five times too many! Now face my consequences like the failures many!' " << "\n";
 			cout << "Game Over! \n";
 		}
 		else
@@ -95,6 +97,9 @@ void playGameAtDifficulty(int difficulty, int lives)
 // The start of the game (and the main method).
 int main()
 {
+	// Generates a new seed based on the time of day.
+	srand(time(NULL));
+
 	cout << "You are an adventurer in search of the next big artifact.\n";
 	cout << "You hear rumors of an artifact known as the Ring of Infinity, located in the Gaia Temple.\n";
 	cout << "You set off on your quest to the Gaia Temple.\n\n";
